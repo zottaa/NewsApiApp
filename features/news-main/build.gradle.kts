@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.jetbrainsKotlinKapt)
+    alias(libs.plugins.googleDaggerHiltAndroid)
 }
 
 android {
@@ -34,8 +36,12 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.13"
     }
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 dependencies {
@@ -57,6 +63,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.kotlinx.coroutines.android)
-
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.compiler)
     implementation(project(":news-data"))
 }

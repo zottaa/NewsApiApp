@@ -2,20 +2,23 @@ package com.github.news.data
 
 import com.github.database.NewsDataBase
 import com.github.newsapi.NewsApi
+import jakarta.inject.Inject
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.merge
 
 interface ArticleRepository {
-    fun all(mergeStrategy: MergeStrategy<RequestResult<List<Article>>>): Flow<RequestResult<List<Article>>>
+    fun all(
+        mergeStrategy: MergeStrategy<RequestResult<List<Article>>> = RequestResultMergeStrategy()
+    ): Flow<RequestResult<List<Article>>>
 
     fun search(
         query: String,
-        mergeStrategy: MergeStrategy<RequestResult<List<Article>>>
+        mergeStrategy: MergeStrategy<RequestResult<List<Article>>> = RequestResultMergeStrategy()
     ): Flow<RequestResult<List<Article>>>
 
-    class Base(
+    class Base @Inject constructor(
         private val db: NewsDataBase,
         private val api: NewsApi
     ) : ArticleRepository {
@@ -64,5 +67,5 @@ sealed class RequestResult<E>(
 ) {
     class InProgress<E>(date: E?) : RequestResult<E>(date)
     class Success<E>(date: E?) : RequestResult<E>(date)
-    class Error<E>(date: E, val errorMessage: String) : RequestResult<E>(date)
+    class Error<E>(date: E?, val errorMessage: String) : RequestResult<E>(date)
 }

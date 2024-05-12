@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.jetbrainsKotlinKapt)
+    alias(libs.plugins.googleDaggerHiltAndroid)
 }
 
 android {
@@ -14,10 +16,17 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
+
+
+        buildConfigField("String", "NEWS_API_KEY", "\"79c2d61b2f5140c0a532cd10dad5e416\"")
+        buildConfigField(
+            "String", "NEWS_API_BASE_URL", "\"https://newsapi.org/v2\""
+        )
     }
 
     buildTypes {
@@ -37,10 +46,11 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
+        buildConfig = true
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.13"
     }
     packaging {
         resources {
@@ -65,4 +75,10 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation(libs.dagger.hilt.android)
+    kapt(libs.dagger.hilt.compiler)
+
+    implementation(project(":newsapi"))
+    implementation(project(":news-data"))
+    implementation(project(":database"))
 }

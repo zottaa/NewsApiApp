@@ -27,7 +27,7 @@ class NewsDataBase internal constructor(
         get() = db.articleDao()
 }
 
-fun NewsDatabase(applicationContext: Context): NewsDataBase {
+fun ProvideNewsDatabase(applicationContext: Context): NewsDataBase {
     val roomNewsDatabase = Room.databaseBuilder(
         applicationContext.applicationContext,
         RoomNewsDatabase::class.java,

@@ -60,10 +60,17 @@ class NewsApi(
     }
 }
 
+fun ProvideNewsApi(
+    baseUrl: String,
+    apiKey: String,
+): NewsApi =
+    NewsApi(baseUrl, apiKey)
+
 sealed class ArticleResult {
     data class Success(
         val articles: List<ArticleCloud>
     ) : ArticleResult()
+
     data class Error(
         val errorMessage: String
     ) : ArticleResult()

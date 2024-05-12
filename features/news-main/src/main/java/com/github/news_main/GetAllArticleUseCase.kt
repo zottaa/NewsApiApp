@@ -6,8 +6,9 @@ import com.github.news.data.MergeStrategy
 import com.github.news.data.RequestResult
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
 
-class GetAllArticleUseCase(
+class GetAllArticleUseCase @Inject constructor(
     private val repository: ArticleRepository,
     private val mergeStrategy: MergeStrategy<RequestResult<List<Article>>>
 ) {
