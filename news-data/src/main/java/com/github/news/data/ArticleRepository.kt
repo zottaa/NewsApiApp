@@ -10,10 +10,6 @@ import kotlinx.coroutines.flow.merge
 
 interface ArticleRepository {
     fun all(
-        mergeStrategy: MergeStrategy<RequestResult<List<Article>>> = RequestResultMergeStrategy()
-    ): Flow<RequestResult<List<Article>>>
-
-    fun search(
         query: String,
         mergeStrategy: MergeStrategy<RequestResult<List<Article>>> = RequestResultMergeStrategy()
     ): Flow<RequestResult<List<Article>>>
@@ -23,6 +19,7 @@ interface ArticleRepository {
         private val api: NewsApi
     ) : ArticleRepository {
         override fun all(
+            query: String,
             mergeStrategy: MergeStrategy<RequestResult<List<Article>>>
         ): Flow<RequestResult<List<Article>>> {
             val dbRequestStartFlow = flow<RequestResult<List<Article>>> {
@@ -40,7 +37,7 @@ interface ArticleRepository {
                 emit(RequestResult.InProgress(null))
             }
             val serverRequestFlow = flow {
-                val apiResponse = api.everything()
+                val apiResponse = api.everything(query)
                 val requestResult = apiResponse.toRequestResult()
                 emit(apiResponse.toRequestResult())
                 if (requestResult.date != null) {
@@ -51,13 +48,6 @@ interface ArticleRepository {
             val server = merge(serverRequestStartFlow, serverRequestFlow)
 
             return cache.combine(server, mergeStrategy::merge)
-        }
-
-        override fun search(
-            query: String,
-            mergeStrategy: MergeStrategy<RequestResult<List<Article>>>
-        ): Flow<RequestResult<List<Article>>> {
-            TODO("Not yet implemented")
         }
     }
 }

@@ -10,7 +10,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
-import retrofit2.http.Query
 import java.util.Date
 
 class NewsApi(
@@ -32,8 +31,8 @@ class NewsApi(
 
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
             .client(modifiedOkHttpClient)
+            .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
@@ -53,7 +52,7 @@ class NewsApi(
             if (response.status == "ok")
                 ArticleResult.Success(response.articles)
             else
-                ArticleResult.Error("Server error")
+                ArticleResult.Error(response.message)
         } catch (exception: Exception) {
             ArticleResult.Error(exception.message ?: "Unknown error")
         }
@@ -63,8 +62,9 @@ class NewsApi(
 fun ProvideNewsApi(
     baseUrl: String,
     apiKey: String,
+    okHttpClient: OkHttpClient? = null
 ): NewsApi =
-    NewsApi(baseUrl, apiKey)
+    NewsApi(baseUrl, apiKey, okHttpClient)
 
 sealed class ArticleResult {
     data class Success(

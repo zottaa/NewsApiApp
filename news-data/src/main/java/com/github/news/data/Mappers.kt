@@ -77,6 +77,8 @@ internal fun ArticleResult.toRequestResult(): RequestResult<List<Article>> {
             RequestResult.Success(
                 this.articles.map {
                     it.toArticle()
+                }.filter {
+                    it.title != "[Removed]"
                 }
             )
         }

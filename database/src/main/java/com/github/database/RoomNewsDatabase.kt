@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import androidx.room.migration.Migration
 import com.github.database.dao.ArticleDao
 import com.github.database.models.ArticleCache
 import com.github.database.models.SourceCache
@@ -32,6 +33,7 @@ fun ProvideNewsDatabase(applicationContext: Context): NewsDataBase {
         applicationContext.applicationContext,
         RoomNewsDatabase::class.java,
         "news"
-    ).build()
+    )
+        .build()
     return NewsDataBase(roomNewsDatabase)
 }

@@ -2,18 +2,17 @@ package com.github.news_main
 
 import com.github.news.data.Article
 
-sealed class State {
+sealed class State(val articles: List<Article>) {
 
-    object Initial : State()
-    data class Loading(
-        private val articles: List<Article>
-    ) : State()
-    data class Error(
-        private val articles: List<Article>,
-        private val errorMessage: String
-    ) : State()
+    object Initial : State(emptyList())
+    class Loading(articles: List<Article>) : State(articles)
 
-    data class Success(
-        private val articles: List<Article>
-    ) : State()
+    class Error(
+        articles: List<Article>,
+        val errorMessage: String
+    ) : State(articles)
+
+    class Success(
+        articles: List<Article>
+    ) : State(articles)
 }

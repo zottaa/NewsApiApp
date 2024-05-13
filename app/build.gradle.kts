@@ -25,7 +25,7 @@ android {
 
         buildConfigField("String", "NEWS_API_KEY", "\"79c2d61b2f5140c0a532cd10dad5e416\"")
         buildConfigField(
-            "String", "NEWS_API_BASE_URL", "\"https://newsapi.org/v2\""
+            "String", "NEWS_API_BASE_URL", "\"https://newsapi.org/v2/\""
         )
     }
 
@@ -79,6 +79,8 @@ dependencies {
     kapt(libs.dagger.hilt.compiler)
 
     implementation(project(":newsapi"))
+    implementation(project(":news-uikit"))
     implementation(project(":news-data"))
     implementation(project(":database"))
+    implementation(project(":features:news-main"))
 }

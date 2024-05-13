@@ -2,11 +2,7 @@ package com.github.zottaa
 
 import android.content.Context
 import com.github.database.ProvideNewsDatabase
-import com.github.news.data.Article
 import com.github.news.data.ArticleRepository
-import com.github.news.data.MergeStrategy
-import com.github.news.data.RequestResult
-import com.github.news.data.RequestResultMergeStrategy
 import com.github.newsapi.ProvideNewsApi
 import dagger.Binds
 import dagger.Module

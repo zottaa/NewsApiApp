@@ -13,16 +13,16 @@ data class ArticleCache(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo("id")
     val id: Long,
-    @Embedded(prefix = "source.")
+    @Embedded(prefix = "source")
     val source: SourceCache,
     @ColumnInfo("author")
-    val author: String,
+    val author: String?,
     @ColumnInfo("title")
     val title: String,
     @ColumnInfo("url")
     val url: String,
     @ColumnInfo("urlToImage")
-    val urlToImage: String,
+    val urlToImage: String?,
     @ColumnInfo("publishedAt")
     val publishedAt: Date,
     @ColumnInfo("content")

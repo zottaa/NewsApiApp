@@ -14,4 +14,5 @@ dependencies {
     implementation(libs.retrofit2)
     implementation(libs.retrofit2.converter.gson)
     implementation(libs.androidx.annotation)
+    api(libs.okhttp)
 }

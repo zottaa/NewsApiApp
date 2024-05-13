@@ -1,4 +1,4 @@
-package com.github.zottaa.ui.theme
+package com.github.news.uikit
 
 import androidx.compose.ui.graphics.Color
 
