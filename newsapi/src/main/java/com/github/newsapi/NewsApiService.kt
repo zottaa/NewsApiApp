@@ -10,7 +10,7 @@ import retrofit2.http.Query
 import java.util.Date
 
 interface NewsApiService {
-    @GET("everything?")
+    @GET("everything")
     suspend fun everything(
         @Query("q") keyWords: String? = null,
         @Query("from") from: Date? = null,

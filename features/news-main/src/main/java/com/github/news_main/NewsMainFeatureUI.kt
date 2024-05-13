@@ -1,6 +1,10 @@
 package com.github.news_main
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -89,9 +94,13 @@ private fun Articles(articles: List<Article>) {
 
 @Composable
 private fun Article(article: Article) {
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .padding(8.dp)
+            .clickable {
+                followTheLink(article, context)
+            }
     ) {
         Text(
             text = article.title,
@@ -104,5 +113,11 @@ private fun Article(article: Article) {
             maxLines = 3,
             textAlign = TextAlign.Justify
         )
+    }
+}
+
+private fun followTheLink(article: Article, context: Context) {
+    Intent(Intent.ACTION_VIEW, Uri.parse(article.url)).also {
+        context.startActivity(it)
     }
 }

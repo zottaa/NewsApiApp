@@ -10,6 +10,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
+import java.net.UnknownHostException
 import java.util.Date
 
 class NewsApi(
@@ -53,6 +54,8 @@ class NewsApi(
                 ArticleResult.Success(response.articles)
             else
                 ArticleResult.Error(response.message)
+        } catch (noInternetException: UnknownHostException) {
+            ArticleResult.Error("No internet connection")
         } catch (exception: Exception) {
             ArticleResult.Error(exception.message ?: "Unknown error")
         }
