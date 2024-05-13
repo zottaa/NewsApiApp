@@ -99,7 +99,7 @@ private fun Article(article: Article) {
         modifier = Modifier
             .padding(8.dp)
             .clickable {
-                followTheLink(article, context)
+                followTheLink(context, article.url)
             }
     ) {
         Text(
@@ -116,8 +116,8 @@ private fun Article(article: Article) {
     }
 }
 
-private fun followTheLink(article: Article, context: Context) {
-    Intent(Intent.ACTION_VIEW, Uri.parse(article.url)).also {
+private fun followTheLink(context: Context, url: String) {
+    Intent(Intent.ACTION_VIEW, Uri.parse(url)).also {
         context.startActivity(it)
     }
 }
