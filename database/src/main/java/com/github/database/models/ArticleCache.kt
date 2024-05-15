@@ -4,8 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.github.database.utils.DateConverter
 import java.util.Date
 
 @Entity(tableName = "articles")

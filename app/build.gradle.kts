@@ -77,8 +77,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation(libs.dagger.hilt.android)
     kapt(libs.dagger.hilt.compiler)
+    implementation(project(":news-api"))
 
-    implementation(project(":newsapi"))
     implementation(project(":news-uikit"))
     implementation(project(":news-data"))
     implementation(project(":database"))

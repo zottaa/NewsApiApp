@@ -5,7 +5,6 @@ import com.github.newsapi.models.ArticleCloud
 import com.github.newsapi.models.Languages
 import com.github.newsapi.models.SortBy
 import com.github.newsapi.utils.ApiKeyInterceptor
-import com.github.zottaa.NewsApiService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -18,10 +17,10 @@ class NewsApi(
     apiKey: String,
     okHttpClient: OkHttpClient? = null
 ) {
-    private val newsApi: NewsApiService
+    private val instance: NewsApiService
 
     init {
-        newsApi = retrofit(baseUrl, apiKey, okHttpClient).create()
+        instance = retrofit(baseUrl, apiKey, okHttpClient).create()
     }
 
     private fun retrofit(baseUrl: String, apiKey: String, okHttpClient: OkHttpClient?): Retrofit {
@@ -37,6 +36,7 @@ class NewsApi(
             .build()
     }
 
+    @Suppress("LongParameterList", "SwallowedException")
     suspend fun everything(
         keyWords: String? = null,
         from: Date? = null,
@@ -49,15 +49,14 @@ class NewsApi(
         page: Int = 1,
     ): ArticleResult {
         return try {
-            val response = newsApi.everything(keyWords, from, to, language, sortBy, pageSize, page)
-            if (response.status == "ok")
+            val response = instance.everything(keyWords, from, to, language, sortBy, pageSize, page)
+            if (response.status == "ok") {
                 ArticleResult.Success(response.articles)
-            else
+            } else {
                 ArticleResult.Error(response.message)
+            }
         } catch (noInternetException: UnknownHostException) {
             ArticleResult.Error("No internet connection")
-        } catch (exception: Exception) {
-            ArticleResult.Error(exception.message ?: "Unknown error")
         }
     }
 }

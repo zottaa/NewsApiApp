@@ -1,4 +1,4 @@
-package com.github.news_main
+package com.github.main
 
 import com.github.news.data.Article
 import com.github.news.data.ArticleRepository

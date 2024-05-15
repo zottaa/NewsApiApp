@@ -1,4 +1,4 @@
-package com.github.news_main
+package com.github.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -22,5 +22,6 @@ internal class NewsMainViewModel @Inject constructor(
             .stateIn(viewModelScope, SharingStarted.Lazily, State.Initial)
 
     fun forceUpdate() {
+        TODO("Not implemented")
     }
 }

@@ -1,3 +1,5 @@
+@file:Suppress("UNUSED_PARAMETER")
+
 package com.github.news.data
 
 interface MergeStrategy<E> {
@@ -5,6 +7,7 @@ interface MergeStrategy<E> {
 }
 
 class RequestResultMergeStrategy : MergeStrategy<RequestResult<List<Article>>> {
+    @Suppress("CyclomaticComplexMethod")
     override fun merge(
         left: RequestResult<List<Article>>,
         right: RequestResult<List<Article>>
@@ -40,17 +43,7 @@ class RequestResultMergeStrategy : MergeStrategy<RequestResult<List<Article>>> {
                 right
             )
 
-            left is RequestResult.Error && right is RequestResult.Success -> merge(
-                left,
-                right
-            )
-
-            left is RequestResult.Error && right is RequestResult.InProgress -> merge(
-                left,
-                right
-            )
-
-            left is RequestResult.Error && right is RequestResult.Error -> merge(
+            left is RequestResult.Error -> merge(
                 left,
                 right
             )

@@ -1,4 +1,4 @@
-package com.github.news_main
+package com.github.main
 
 import android.content.Context
 import android.content.Intent
@@ -10,10 +10,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
@@ -34,14 +32,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
-import coil.size.Size
 import com.github.news.data.Article
+import com.github.news_main.R
 
 @Composable
 fun NewsMainScreen() {
     NewsMainScreen(viewModel())
 }
-
 
 @Composable
 internal fun NewsMainScreen(viewModel: NewsMainViewModel) {

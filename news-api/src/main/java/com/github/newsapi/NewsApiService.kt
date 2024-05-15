@@ -1,15 +1,15 @@
-package com.github.zottaa
+package com.github.newsapi
 
 import androidx.annotation.IntRange
 import com.github.newsapi.models.ArticleResponse
 import com.github.newsapi.models.Languages
 import com.github.newsapi.models.SortBy
-import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
 import java.util.Date
 
 interface NewsApiService {
+    @Suppress("LongParameterList")
     @GET("everything")
     suspend fun everything(
         @Query("q") keyWords: String? = null,
@@ -25,4 +25,3 @@ interface NewsApiService {
         page: Int = 1,
     ): ArticleResponse
 }
-

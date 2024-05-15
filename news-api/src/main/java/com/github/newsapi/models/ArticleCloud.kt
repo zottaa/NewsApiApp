@@ -1,6 +1,6 @@
 package com.github.newsapi.models
 
-import com.github.zottaa.utils.DateSerializer
+import com.github.newsapi.utils.DateSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import java.util.Date

@@ -1,4 +1,4 @@
-package com.github.zottaa.com.github.zottaa
+package com.github.zottaa
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

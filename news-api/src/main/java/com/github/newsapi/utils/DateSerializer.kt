@@ -1,4 +1,4 @@
-package com.github.zottaa.utils
+package com.github.newsapi.utils
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerializationException

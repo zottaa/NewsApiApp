@@ -24,7 +24,6 @@ abstract class AppModule {
         fun providesNewsDataBase(@ApplicationContext context: Context) =
             ProvideNewsDatabase(context)
 
-
         @Provides
         @Singleton
         fun providesNewsApi() =
@@ -32,6 +31,5 @@ abstract class AppModule {
                 baseUrl = BuildConfig.NEWS_API_BASE_URL,
                 apiKey = BuildConfig.NEWS_API_KEY,
             )
-
     }
 }

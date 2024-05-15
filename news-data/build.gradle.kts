@@ -37,5 +37,5 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.jakarta.inject.api)
     implementation(project(":database"))
-    implementation(project(":newsapi"))
+    implementation(project(":news-api"))
 }

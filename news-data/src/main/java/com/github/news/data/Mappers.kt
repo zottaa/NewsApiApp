@@ -27,7 +27,6 @@ internal fun SourceCache.toSource(): Source =
         )
     }
 
-
 internal fun ArticleCloud.toArticle(): Article =
     with(this) {
         Article(
@@ -41,12 +40,12 @@ internal fun ArticleCloud.toArticle(): Article =
         )
     }
 
-
 internal fun SourceCloud.toSource(): Source =
     with(this) {
         Source(
             id ?: "",
-            name)
+            name
+        )
     }
 
 internal fun Article.toArticleCache(): ArticleCache =
@@ -60,7 +59,7 @@ internal fun Article.toArticleCache(): ArticleCache =
             urlToImage = urlToImage,
             publishedAt = publishedAt,
             content = content
-            )
+        )
     }
 
 internal fun Source.toSourceCache(): SourceCache =
@@ -85,7 +84,8 @@ internal fun ArticleResult.toRequestResult(): RequestResult<List<Article>> {
 
         else -> {
             RequestResult.Error(
-                null, (this as ArticleResult.Error).errorMessage
+                null,
+                (this as ArticleResult.Error).errorMessage
             )
         }
     }
