@@ -56,28 +56,28 @@ class RequestResultMergeStrategy : MergeStrategy<RequestResult<List<Article>>> {
         cache: RequestResult.Success<List<Article>>,
         server: RequestResult.Success<List<Article>>
     ): RequestResult<List<Article>> {
-        return RequestResult.Success(server.date)
+        return RequestResult.Success(server.data)
     }
 
     private fun merge(
         cache: RequestResult.Success<List<Article>>,
         server: RequestResult.InProgress<List<Article>>
     ): RequestResult<List<Article>> {
-        return RequestResult.InProgress(cache.date)
+        return RequestResult.InProgress(cache.data)
     }
 
     private fun merge(
         cache: RequestResult.Success<List<Article>>,
         server: RequestResult.Error<List<Article>>
     ): RequestResult<List<Article>> {
-        return RequestResult.Error(cache.date, server.errorMessage)
+        return RequestResult.Error(cache.data, server.errorMessage)
     }
 
     private fun merge(
         cache: RequestResult.InProgress<List<Article>>,
         server: RequestResult.Success<List<Article>>
     ): RequestResult<List<Article>> {
-        return RequestResult.Success(server.date)
+        return RequestResult.Success(server.data)
     }
 
     private fun merge(
@@ -85,8 +85,8 @@ class RequestResultMergeStrategy : MergeStrategy<RequestResult<List<Article>>> {
         server: RequestResult.InProgress<List<Article>>
     ): RequestResult<List<Article>> {
         return when {
-            cache.date != null -> RequestResult.InProgress(cache.date)
-            server.date != null -> RequestResult.InProgress(server.date)
+            cache.data != null -> RequestResult.InProgress(cache.data)
+            server.data != null -> RequestResult.InProgress(server.data)
             else -> RequestResult.InProgress(null)
         }
     }
@@ -96,8 +96,8 @@ class RequestResultMergeStrategy : MergeStrategy<RequestResult<List<Article>>> {
         server: RequestResult.Error<List<Article>>
     ): RequestResult<List<Article>> {
         return when {
-            cache.date != null -> RequestResult.Error(cache.date, server.errorMessage)
-            server.date != null -> RequestResult.Error(server.date, server.errorMessage)
+            cache.data != null -> RequestResult.Error(cache.data, server.errorMessage)
+            server.data != null -> RequestResult.Error(server.data, server.errorMessage)
             else -> RequestResult.Error(null, server.errorMessage)
         }
     }
@@ -106,7 +106,7 @@ class RequestResultMergeStrategy : MergeStrategy<RequestResult<List<Article>>> {
         cache: RequestResult.Error<List<Article>>,
         server: RequestResult.Success<List<Article>>
     ): RequestResult<List<Article>> {
-        return RequestResult.Error(server.date, cache.errorMessage)
+        return RequestResult.Error(server.data, cache.errorMessage)
     }
 
     private fun merge(
@@ -114,8 +114,8 @@ class RequestResultMergeStrategy : MergeStrategy<RequestResult<List<Article>>> {
         server: RequestResult.InProgress<List<Article>>
     ): RequestResult<List<Article>> {
         return when {
-            cache.date != null -> RequestResult.Error(cache.date, cache.errorMessage)
-            server.date != null -> RequestResult.Error(server.date, cache.errorMessage)
+            cache.data != null -> RequestResult.Error(cache.data, cache.errorMessage)
+            server.data != null -> RequestResult.Error(server.data, cache.errorMessage)
             else -> RequestResult.Error(null, cache.errorMessage)
         }
     }
@@ -125,13 +125,13 @@ class RequestResultMergeStrategy : MergeStrategy<RequestResult<List<Article>>> {
         server: RequestResult.Error<List<Article>>
     ): RequestResult<List<Article>> {
         return when {
-            cache.date != null -> RequestResult.Error(
-                cache.date,
+            cache.data != null -> RequestResult.Error(
+                cache.data,
                 "server: ${server.errorMessage} cache: ${cache.errorMessage}"
             )
 
-            server.date != null -> RequestResult.Error(
-                server.date,
+            server.data != null -> RequestResult.Error(
+                server.data,
                 "server: ${server.errorMessage} cache: ${cache.errorMessage}"
             )
 

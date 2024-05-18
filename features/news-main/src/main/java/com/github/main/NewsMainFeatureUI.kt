@@ -15,9 +15,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -40,12 +45,38 @@ fun NewsMainScreen() {
     NewsMainScreen(viewModel())
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun NewsMainScreen(viewModel: NewsMainViewModel) {
     val state by viewModel.state.collectAsState()
-    val currentState = state
-    if (currentState != State.Initial) {
-        NewsMainContent(currentState)
+    val query by viewModel.query.collectAsState()
+    val refreshState = rememberPullToRefreshState()
+
+    LaunchedEffect(refreshState.isRefreshing) {
+        if (refreshState.isRefreshing) {
+            viewModel.forceUpdate(query, state.articles)
+            refreshState.endRefresh()
+        }
+    }
+    Column {
+        TextField(
+            value = query,
+            onValueChange = { newQuery ->
+                if (newQuery != query) {
+                    viewModel.search(newQuery)
+                }
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(6.dp),
+            placeholder = { Text(text = stringResource(R.string.search)) }
+        )
+        Spacer(modifier = Modifier.size(8.dp))
+        Box(modifier = Modifier.nestedScroll(refreshState.nestedScrollConnection)) {
+            if (state != State.Initial) {
+                NewsMainContent(state)
+            }
+        }
     }
 }
 

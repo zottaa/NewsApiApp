@@ -1,16 +1,13 @@
 package com.github.newsapi
 
-import androidx.annotation.IntRange
 import com.github.newsapi.models.ArticleCloud
-import com.github.newsapi.models.Languages
-import com.github.newsapi.models.SortBy
+import com.github.newsapi.models.ArticleQueryCloud
 import com.github.newsapi.utils.ApiKeyInterceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 import java.net.UnknownHostException
-import java.util.Date
 
 class NewsApi(
     baseUrl: String,
@@ -38,18 +35,18 @@ class NewsApi(
 
     @Suppress("LongParameterList", "SwallowedException")
     suspend fun everything(
-        keyWords: String? = null,
-        from: Date? = null,
-        to: Date? = null,
-        language: Languages? = null,
-        sortBy: SortBy? = null,
-        @IntRange(from = 0, to = 100)
-        pageSize: Int = 100,
-        @IntRange(from = 1)
-        page: Int = 1,
+        articleQuery: ArticleQueryCloud
     ): ArticleResult {
         return try {
-            val response = instance.everything(keyWords, from, to, language, sortBy, pageSize, page)
+            val response = instance.everything(
+                articleQuery.keyWords,
+                articleQuery.from,
+                articleQuery.to,
+                articleQuery.language,
+                articleQuery.sortBy,
+                articleQuery.pageSize,
+                articleQuery.page
+            )
             if (response.status == "ok") {
                 ArticleResult.Success(response.articles)
             } else {

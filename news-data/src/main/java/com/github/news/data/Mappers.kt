@@ -4,6 +4,7 @@ import com.github.database.models.ArticleCache
 import com.github.database.models.SourceCache
 import com.github.newsapi.ArticleResult
 import com.github.newsapi.models.ArticleCloud
+import com.github.newsapi.models.ArticleQueryCloud
 import com.github.newsapi.models.SourceCloud
 
 internal fun ArticleCache.toArticle(): Article =
@@ -88,5 +89,19 @@ internal fun ArticleResult.toRequestResult(): RequestResult<List<Article>> {
                 (this as ArticleResult.Error).errorMessage
             )
         }
+    }
+}
+
+internal fun ArticleQuery.toArticleQueryCloud(): ArticleQueryCloud {
+    return with(this) {
+        ArticleQueryCloud(
+            keyWords,
+            from,
+            to,
+            language,
+            sortBy,
+            pageSize,
+            page
+        )
     }
 }
